@@ -6,6 +6,9 @@ __pycache__/
 # C extensions
 *.so
 
+# Dev/yatube_project/.gitignore
+.vscode/
+
 # Distribution / packaging
 .Python
 build/
