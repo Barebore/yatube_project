@@ -14,7 +14,6 @@
     <meta name="msapplication-TileColor" content="#000">
     <meta name="theme-color" content="#ffffff">
     <!-- Подключен файл со стандартными стилями бустрап -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
     <title>Последние обновления на сайте</title>
   </head>
   <body>
@@ -24,7 +23,7 @@
       <nav class="navbar navbar-light" style="background-color: lightskyblue">
         <div class="container">
           <a class="navbar-brand" href="{% url 'posts:index' %}">
-            <img src="img/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
+            <img src="{% static 'img/logo.png' %}" width="30" height="30" class="d-inline-block align-top" alt="">
             <!-- тег span используется для добавления нужных стилей отдельным участкам текста -->
             <span style="color:red">Ya</span>tube
           </a>
@@ -35,6 +34,7 @@
       <!-- класс py-5 создает отступы сверху и снизу блока -->
       <div class="container py-5">     
         <h1>{{ text }}</h1>
+        <article>
         {% for post in posts %}
         <ul>
           <li>
@@ -44,8 +44,10 @@
             Дата публикации: {{ post.pub_date|date:"d E Y" }}
           </li>
         </ul>
-        <p>{{ post.text }}</p>    
-        <a href="">все записи группы</a>
+        <p>{{ post.text }}</p>
+        {% if post.group %}
+          <a href="{% url 'posts:group_list' post.group.slug %}">все записи группы</a>
+        {% endif %}
         {% if not forloop.last %}<hr>{% endif %}
         {% endfor %} 
         </article>
